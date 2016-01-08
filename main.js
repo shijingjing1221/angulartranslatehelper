@@ -32,9 +32,10 @@ function parserFile() {
     }
 }
 
-function parserText(self) {
+function parserText(self, item) {
+    var tagName = item.tagName;
     var textTrim = self.text().trim();
-    if (textTrim == '' || textTrim.search(/\{\{.*\}\}/) >= 0) {
+    if (tagName == 'pre' || tagName == 'code' || textTrim == '' || textTrim.search(/\{\{.*\}\}/) >= 0) {
         return 0;
     }
     if (self.children().length == 0) {
@@ -60,13 +61,13 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
         //Search each node in the dom
         var locationString = "";
         $('*').each(function (i, item) {
-            var parserResult = parserText($(this));
+            var parserResult = parserText($(this), item);
             //If dom is the leaf node
             if (parserResult != 0) {
                 var textTrim = $(this).text().trim();
                 locationString = locationString + "'" + prefix + "_TEXT" + i + "': '" + textTrim + "',\n";
                 if (parserResult == 1) {
-                    $(this).attr('ng-bind-html', function () {
+                    $(this).attr('bind-html-unsafe', function () {
                         $(this).text('');
                         return "{{'" + prefix + "_TEXT" + i + "'|translate}}"
 
