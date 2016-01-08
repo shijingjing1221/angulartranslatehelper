@@ -16,11 +16,11 @@ fs.readdir(productPath + '/.tmp/app/', function (err, items) {
 
     }
     console.log(stateNames);
-    parserFile();
+    parserFiles();
 });
 
 
-function parserFile() {
+function parserFiles() {
     for (var i = 0; i < stateNames.length; ++i) {
         var stateName = stateNames[i];
         var fileSource = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.html';
@@ -69,7 +69,7 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
                 if (parserResult == 1) {
                     $(this).attr('bind-html-unsafe', function () {
                         $(this).text('');
-                        return "{{'" + prefix + "_TEXT" + i + "'|translate}}"
+                        return "'" + prefix + "_TEXT" + i + "'|translate"
 
                     });
                 }
