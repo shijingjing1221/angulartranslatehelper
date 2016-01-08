@@ -3,19 +3,36 @@ var cheerio = require('cheerio'),
     html2jade = require('html2jade');
 
 var productPath = "/project/dnshelper";
-var stateNames = ["cacheonly", "download", "firewall", "main", "serverinfo", "type", "version", "view", "zone"];
 
-for (var i = 0; i < stateNames.length; ++i) {
-    var stateName = stateNames[i];
-    var fileSource = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.html';
-    var fileTargetHtml = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.html.tmp';
-    var fileTargetJade = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.jade.tmp';
-    var fileJson = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.json';;
-    var prefix = stateName.toUpperCase();
-    parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, prefix);
+// var stateNames = ["cacheonly", "download", "firewall", "main", "serverinfo", "type", "version", "view", "zone"];
+var stateNames = [];
+fs.readdir(productPath + '/.tmp/app/', function (err, items) {
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        console.log(item);
+        if (item.search(/\./) < 0) {
+            stateNames.push(item);
+        }
+
+    }
+    console.log(stateNames);
+    parserFile();
+});
+
+
+function parserFile() {
+    for (var i = 0; i < stateNames.length; ++i) {
+        var stateName = stateNames[i];
+        var fileSource = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.html';
+        var fileTargetHtml = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.html.tmp';
+        var fileTargetJade = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.jade.tmp';
+        var fileJson = productPath + '/.tmp/app/' + stateName + '/' + stateName + '.json.tmp';;
+        var prefix = stateName.toUpperCase();
+        parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, prefix);
+    }
 }
 
-function parsrText(self) {
+function parserText(self) {
     var textTrim = self.text().trim();
     if (textTrim == '' || textTrim.search(/\{\{.*\}\}/) >= 0) {
         return 0;
@@ -43,7 +60,7 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
         //Search each node in the dom
         var locationString = "";
         $('*').each(function (i, item) {
-            var parserResult = parsrText($(this));
+            var parserResult = parserText($(this));
             //If dom is the leaf node
             if (parserResult != 0) {
                 var textTrim = $(this).text().trim();
