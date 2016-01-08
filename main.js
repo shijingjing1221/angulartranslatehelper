@@ -3,7 +3,7 @@ var cheerio = require('cheerio'),
     html2jade = require('html2jade');
 
 var productPath = "/project/dnshelper";
-var stateNames = ["version", "type", "cacheonly"];
+var stateNames = ["cacheonly", "download", "firewall", "main", "serverinfo", "type", "version", "view", "zone"];
 
 for (var i = 0; i < stateNames.length; ++i) {
     var stateName = stateNames[i];
@@ -47,7 +47,7 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
             //If dom is the leaf node
             if (parserResult != 0) {
                 var textTrim = $(this).text().trim();
-                locationString = locationString + "'" + prefix + "_TEXT" + i + "': '" + textTrim + "'\n";
+                locationString = locationString + "'" + prefix + "_TEXT" + i + "': '" + textTrim + "',\n";
                 if (parserResult == 1) {
                     $(this).attr('ng-bind-html', function () {
                         $(this).text('');
