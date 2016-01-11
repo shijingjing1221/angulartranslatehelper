@@ -60,12 +60,14 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
         });
         //Search each node in the dom
         var locationString = "";
+        var count = 0;
         $('*').each(function (i, item) {
             var parserResult = parserText($(this), item);
             //If dom is the leaf node
             if (parserResult != 0) {
+                ++count;
                 var textTrim = $(this).text().trim();
-                locationString = locationString + "'" + prefix + "_TEXT" + i + "': '" + textTrim + "',\n";
+                locationString = locationString + "'" + prefix + "_TEXT" + count + "': '" + textTrim + "',\n";
                 if (parserResult == 1) {
                     $(this).attr('bind-html-unsafe', function () {
                         $(this).text('');
