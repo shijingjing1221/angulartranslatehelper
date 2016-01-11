@@ -1,8 +1,9 @@
 var cheerio = require('cheerio'),
     fs = require('fs'),
-    html2jade = require('html2jade');
+    html2jade = require('html2jade'),
+    pkg = require('./package');
 
-var productPath = "/project/dnshelper";
+var productPath = pkg.productPath;
 
 // var stateNames = ["cacheonly", "download", "firewall", "main", "serverinfo", "type", "version", "view", "zone"];
 var stateNames = [];
@@ -71,12 +72,12 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
                 if (parserResult == 1) {
                     $(this).attr('bind-html-unsafe', function () {
                         $(this).text('');
-                        return "'" + prefix + "_TEXT" + i + "'|translate"
+                        return "'" + prefix + "_TEXT" + count + "'|translate"
 
                     });
                 }
                 if (parserResult == 2) {
-                    $(this).append("{{'" + prefix + "_TEXT" + i + "'|translate}}");
+                    $(this).append("{{'" + prefix + "_TEXT" + count + "'|translate}}");
                 }
 
             }
