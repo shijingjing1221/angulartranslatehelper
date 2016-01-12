@@ -62,22 +62,24 @@ function parseOneFile(fileSource, fileTargetHtml, fileTargetJade, fileJson, pref
         //Search each node in the dom
         var locationString = "";
         var count = 0;
+        var translateKeyword = "";
         $('*').each(function (i, item) {
             var parserResult = parserText($(this), item);
             //If dom is the leaf node
             if (parserResult != 0) {
                 ++count;
+                translateKeyword = prefix + "_TEXT" + count + "_" + item.tagName.toUpperCase();
                 var textTrim = $(this).text().trim();
-                locationString = locationString + "'" + prefix + "_TEXT" + count + "': '" + textTrim + "',\n";
+                locationString = locationString + "'" + translateKeyword + "': '" + textTrim + "',\n";
                 if (parserResult == 1) {
                     $(this).attr('bind-html-unsafe', function () {
                         $(this).text('');
-                        return "'" + prefix + "_TEXT" + count + "'|translate"
+                        return "'" + translateKeyword + "'|translate"
 
                     });
                 }
                 if (parserResult == 2) {
-                    $(this).append("{{'" + prefix + "_TEXT" + count + "'|translate}}");
+                    $(this).append("{{'" + translateKeyword + "'|translate}}");
                 }
 
             }
