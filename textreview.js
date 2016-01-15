@@ -3,13 +3,15 @@ var fs = require('fs'),
   XRegExp = require('xregexp'),
   _ = require('lodash');
 
+  var config = pkg.textreview;
+
 getTextReviewArray(matchTextsInJson);
 
 function getTextReviewArray(callback) {
   var textReview = XRegExp('Original:(?<old>.*)\nProposed:(?<new>.*)\n', "im");
   var textReviewArray = [];
   // var textReviewObjs = {};
-  fs.readFile('/home/jshi/tmp/Backupproposetext.txt', 'utf8', function (err, data) {
+  fs.readFile(config.review_text_file, 'utf8', function (err, data) {
     XRegExp.forEach(data, textReview, function (match, i) {
       var obj = {
         old: match.old.trim(),
@@ -27,7 +29,7 @@ function getTextReviewArray(callback) {
 }
 
 function matchTextsInJson(textReviewArray) {
-  fs.readFile('/home/jshi/tmp/messages_en.json', 'utf8', function (err, data) {
+  fs.readFile(config.source_json_file, 'utf8', function (err, data) {
     var json = JSON.parse(data);
     var resultJson = {};
     _.forEach(json, function (value, key) {
@@ -41,7 +43,7 @@ function matchTextsInJson(textReviewArray) {
     });
     var output = JSON.stringify(resultJson, null, 2);
     // console.log(output);
-    fs.writeFile('/home/jshi/tmp/messages_en.tmp.json', output, function (err) {
+    fs.writeFile(config.output_json_file, output, function (err) {
       if (err) return console.log(err);
     });
   });

@@ -17,5 +17,10 @@
   "scripts": {
     "start": "node main.js"
   },
-  "private": true
+  "private": true,
+  "textreview": {
+    "review_text_file": "/home/jshi/tmp/Backupproposetext.txt",
+    "source_json_file": "/home/jshi/tmp/messages_en.json",
+    "output_json_file": "/home/jshi/tmp/messages_en.tmp.json"
+  }
 }
