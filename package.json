@@ -1,20 +1,21 @@
 {
-    "name": "translatehelper",
-    "version": "1.0.0",
-    "main": "main.js",
-    "productPath": "/project/dnshelper",
-    "dependencies": {
-        "cheerio": "^0.19.0",
-        "fs": "0.0.2",
-        "html2jade": "^0.8.4",
-        "lodash": "~2.4.1"
-    },
-    "devDependencies": {},
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "scripts": {
-        "start": "node main.js"
-    },
-    "private": true
+  "name": "translatehelper",
+  "version": "1.0.0",
+  "main": "main.js",
+  "productPath": "/project/dnshelper",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "fs": "0.0.2",
+    "html2jade": "^0.8.4",
+    "lodash": "~2.4.1",
+    "xregexp": "^3.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
+  "private": true
 }
