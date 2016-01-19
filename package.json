@@ -19,8 +19,10 @@
   },
   "private": true,
   "textreview": {
-    "review_text_file": "/home/jshi/tmp/Backupproposetext.txt",
-    "source_json_file": "/home/jshi/tmp/messages_en.json",
-    "output_json_file": "/home/jshi/tmp/messages_en.tmp.json"
+    "review_text_file": "/tmp/text.txt",
+    "source_json_file": "/tmp/message_en.json",
+    "output_json_file": "/tmp/message_en.tmp.json",
+    "old_phrase": "Change this:\n",
+    "new_phrase": "to this:\n"
   }
 }

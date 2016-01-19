@@ -8,7 +8,10 @@ var fs = require('fs'),
 getTextReviewArray(matchTextsInJson);
 
 function getTextReviewArray(callback) {
-  var textReview = XRegExp('Original:(?<old>.*)\nProposed:(?<new>.*)\n', "im");
+  // var textReview = XRegExp('Original:(?<old>.*)\nProposed:(?<new>.*)\n', "im");
+  console.log(config.old_phrase + '(?<old>.*)\n' + config.new_phrase + '(?<new>.*)\n');
+  var textReview = XRegExp(config.old_phrase + '(?<old>.*)\n' + config.new_phrase + '(?<new>.*)\n', "im");
+  console.log(textReview);
   var textReviewArray = [];
   // var textReviewObjs = {};
   fs.readFile(config.review_text_file, 'utf8', function (err, data) {
@@ -17,6 +20,7 @@ function getTextReviewArray(callback) {
         old: match.old.trim(),
         new: match.new.trim()
       };
+      console.log(obj);
       textReviewArray.push(obj);
       // textReviewObjs[match.new.trim()] = match.old.trim();
     });
