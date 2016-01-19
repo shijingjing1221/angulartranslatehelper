@@ -9,7 +9,6 @@ getTextReviewArray(matchTextsInJson);
 
 function getTextReviewArray(callback) {
   // var textReview = XRegExp('Original:(?<old>.*)\nProposed:(?<new>.*)\n', "im");
-  console.log(config.old_phrase + '(?<old>.*)\n' + config.new_phrase + '(?<new>.*)\n');
   var textReview = XRegExp(config.old_phrase + '(?<old>.*)\n' + config.new_phrase + '(?<new>.*)\n', "im");
   console.log(textReview);
   var textReviewArray = [];
